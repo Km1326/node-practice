@@ -15,7 +15,9 @@
 //     response.statusCode = 404;
 //     response.end();
 //   }
-// }).listen(8000);
+// }).listen(8000, () => {
+//   console.log('server running')
+// });
 
 
 
@@ -33,7 +35,9 @@ http.createServer((request, response) => {
     response.statusCode = 404;
     response.end();
   }
-}).listen(8000);
+}).listen(8000, () => {
+  console.log('server running on port 8000')
+});
 
 
 
