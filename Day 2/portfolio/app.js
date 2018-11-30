@@ -1,93 +1,51 @@
-const http = require('http');
+const express = require('express');
+const app = express();
+const path = require('path');
+const bodyParser = require('body-parser');
 const fs = require('fs');
-const { parse } = require('querystring');
-const url = require('url');
 
-function readFileFromSystem(url, contentType, res) {
-    fs.readFile(url, (err, data) => {
-      if(err) throw err;
-      res.writeHeader(200, { 'Content-Type': contentType });
-      res.write(data);
-      res.end();
-    });
+app.use(express.static('./views'));
+app.use('/assets',express.static('./assets'));
+
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+
+function setPath(res, pathname) {
+  return res.sendFile(path.join(__dirname + pathname))
 }
 
-function findContentType(ext) {
-  switch(ext) {
-    case 'svg':
-      return 'image/svg+xml';
-    case 'png':
-      return 'image/png';
-    default:
-      return 'image/jpeg'
-  }
-}
+app.get('/', function(req, res) {
+  res.send()
+})
 
-const server = http.createServer((req, res) => {
-  
-  if(req.method === 'GET') {
-    switch (req.url) {
-      case '/':
-        return readFileFromSystem('./index.html', 'text/html', res);
-      case '/about':
-        return readFileFromSystem('./about.html', 'text/html', res);
-      case '/project':
-        return readFileFromSystem('./project.html', 'text/html', res);
-      case '/contact':
-        return readFileFromSystem('./contact.html', 'text/html', res);
-      case '/assets/style.css':
-        return readFileFromSystem('./assets/style.css', 'text/css', res);
-      case '/contact/list':
-        return readFileFromSystem('./contactData.txt', 'application/json', res);
-      case req.url:
-        fs.readFile('./contactData.txt', (err, data) => {
-          if(err) throw err;
-          let q = url.parse(req.url, true);
-          data = JSON.parse(data);
-          let qData = q.query;
-          let name = qData.query;
+app.get('/about', (req, res) => {
+  setPath(res, '/views/about.html');
+})
 
-          if(name) {
-            let match = new RegExp(name, 'i'); 
-            const filteredData = data.contacts.filter(contact => match.test(contact.name));
-            res.writeHead(200, { 'content-type': 'application/json'})
-            res.write(JSON.stringify(filteredData[0]))
-            res.end();
-          }
-        });
-        break;
-      case String(req.url.match(/\/assets\/media\/.*/)):
-        const imageStrArr = req.url.split(".");
-        const imageNameExt = imageStrArr[imageStrArr.length - 1];
-        return readFileFromSystem(`.${req.url}`, findContentType(imageNameExt), res);
-      default:
-        res.statusCode = 404;
-        return res.end('Not Found');
-    }
-  } else if(req.method === 'POST' && req.url === '/contact') {
-    var body = '';
-    res.writeHead(200, {"Content-Type": "text/html"});
-    req.on('data', function (data) {
-        body += data.toString();
-        console.log(body);
+app.get('/contact', (req, res) => {
+  setPath(res, '/views/contact.html');
+})
+
+app.get('/project', (req, res) => {
+  setPath(res, '/views/project.html');
+})
+
+app.get('/contact/list', (req, res) => {
+  setPath(res, '/views/contactData.txt');
+})
+
+app.post('/contact', (req, res) => {
+  fs.readFile('./data.json', (err, data) => {
+    data = JSON.parse(data);
+    data.contacts.push(req.body);
+    fs.writeFile('data.json', JSON.stringify(data), (error) => {
+      if(error) throw error;
     });
-    req.on('end', function () {
-        body = parse(body);
-        console.log(body);
-        res.end('form submitted');
-        fs.readFile('./contactData.txt', (err, data) => {
-          data = JSON.parse(data);
-          console.log(body);
-          data.contacts.push(body);
-          fs.writeFile('contactData.txt', JSON.stringify(data), (error) => {
-            if(error) throw error;
-          });
-        })
-    });
-    
-  }
-});
+  })
+  res.send('thanks!!!');
+})
 
-server.listen(8000, () => {
-  console.log('Server running at 8000');
-});
+app.listen(4000, () => {
+  console.log('server running on port http://localhost:4000')
+})
