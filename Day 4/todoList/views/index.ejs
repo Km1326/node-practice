@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../style.css">
+  <title>Todo</title>
+</head>
+<body>
+  <div class="app">
+    <form action="/new" method="GET" >
+      <input type="submit" value="Add Todo" class="btn btn-1"/>
+    </form>
+    <div class="app">
+      <ul class="todo-list-container">
+        <% if(todos) { %> 
+          <% todos.forEach(val => { %>
+            <li class="list" id={<%= val._id %>}>  <a href=<%= '/todos/' + val._id  %>>  <%= val.title %> </a></li>
+          <% }); %>
+        <% } else { %>
+          <li> Add a New Todo </li>
+        <% } %>          
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

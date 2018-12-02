@@ -1,0 +1,57 @@
+body {
+  background: rgba(237, 219, 219, 0.27);
+}
+.app {
+  text-align: center;
+  margin-top: 70px;
+}
+.input-box {
+  padding: 10px;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #141313;
+}
+a:hover {
+  text-decoration: underline;
+  color: blue;
+}
+.btn {
+  outline: none;
+  border: none;
+  box-shadow: .3px 2px 5px .5px #696060;
+  cursor: pointer;
+  padding: 10px 20px;
+  color: white;
+}
+.btn-1 {
+  background: rgb(229, 60, 118);
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+.btn-2 {
+  background: purple;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 8px 15px;
+}
+.todo-list-container {
+  display: inline-block;width: 40%;
+  background: #676363;
+  padding: 20px;
+}
+.list {
+  background: rgba(231, 215, 215, 1);
+  box-shadow: 1px 1px 1px 0.5px #dad9d9;
+  text-align: left;
+  padding: 15px;
+  font-size: 1.3rem;
+  margin: 5px 0;
+  font-weight: 600;
+}
+.red {
+  color: rgb(172, 31, 31);
+}

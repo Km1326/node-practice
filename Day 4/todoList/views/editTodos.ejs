@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../style.css">
+  <title>Edit Todos</title>
+</head>
+<body>
+
+  <div class="app">
+      <% if(data.length) { %> 
+        <form action="/" method="POST" class="app">
+          <p><input type="text" name="title" value=<%= data[0].title %> /></p>
+          <p><textarea name="description" > <%= data[0].description %> </textarea></p>
+          <input type="submit" value="Save" class="btn btn-2"/>
+        </form>
+      <% } else { %>
+        <h3>  Data Not Found !!! </h3>
+      <% } %> 
+  </div>
+
+</body>
+</html>
