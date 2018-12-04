@@ -11,7 +11,8 @@
 
   <div class="app">
       <% if(data.length) { %> 
-        <form action="/" method="POST" class="app">
+        <form action="/todos/<%= data[0]._id %>" method="POST" class="app">
+          <p><input name="method" type="hidden" value="PUT"></p>
           <p><input type="text" name="title" value=<%= data[0].title %> /></p>
           <p><textarea name="description" > <%= data[0].description %> </textarea></p>
           <input type="submit" value="Save" class="btn btn-2"/>
