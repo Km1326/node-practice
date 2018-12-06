@@ -5,6 +5,10 @@ body {
   text-align: center;
   margin-top: 70px;
 }
+.wrapper {
+  width: 70%;
+  margin: 0 auto;
+}
 .input-box {
   padding: 10px;
 }
@@ -20,6 +24,7 @@ a:hover {
   color: blue;
 }
 .btn {
+  display: inline-block;
   outline: none;
   border: none;
   box-shadow: .3px 2px 5px .5px #696060;
@@ -54,4 +59,25 @@ a:hover {
 }
 .red {
   color: rgb(172, 31, 31);
+}
+.edit, .delete {
+  margin: 0 5px;
+  float: right;
+  display: inline-block;
+  padding: 2px;
+}
+.del__btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.title {
+  padding: 10px;
+  font-size: 1.2rem;
+  width: 350px;
+}
+.desc {
+  height: 250px;
+  width: 350px;
+  padding: 10px;
 }

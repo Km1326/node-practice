@@ -4,18 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="/style.css">
   <title>Todo</title>
 </head>
 <body>
 
-  <div class="app">
+  <div class="wrapper">
       <% if(data.length) { %> 
         <div>
           <h3><%= data[0].title %></h3>
           <p><%= data[0].description %></p>
         </div>
-        <button class="btn btn-2"> <a href=<%= '/todos/'+ data[0]._id + '/edit' %>>Edit</a> </button>
+        <a class="btn btn-2" href=<%= '/todos/'+ data[0]._id + '/edit' %>>Edit</a>
+        <form action=<%= '/todos/'+ data[0]._id + '/delete' %> method="GET" class='btn btn-2'>
+          <input name="method" type="hidden" value="DELETE">
+          <button type="submit" class="del__btn">Delete</button>
+        </form>
       <% } else { %>
         <h3 class="red">  Data Not Available !!! </h3>
       <% } %> 

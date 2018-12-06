@@ -3,8 +3,9 @@ const app = express();
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const mongoose = require('mongoose');
+const path = require('path')
 
-app.use('/',express.static('./'));
+app.use(express.static(path.join(__dirname + '/style')));
 
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,7 +21,7 @@ app.use((req, res, next) => {
       next();
       break;
     default:
-     return next();
+      next();
   }
 })
 
@@ -35,7 +36,7 @@ app.use((req, res, next) => {
 
 mongoose.connect('mongodb://localhost/todos', (err, connection) => {
   if(err) throw err;
-  else console.log('connect to mongoose');
+  else console.log('connected to mongoose');
 })
 
 const Schema = mongoose.Schema;
@@ -69,7 +70,6 @@ app.get('/todos/:id', (req, res) => {
 
 app.get('/todos/:id/edit', (req, res) => {
   Todo.find({_id : req.params.id }, (err, data) => {
-    console.log(req.body);
     if(err) throw err;
     else res.render('editTodos', {data})
   })
@@ -86,49 +86,19 @@ app.post('/new', (req, res) => {
 });
 
 app.put('/todos/:id', (req, res) => {
-  Todo.updateOne({_id : req.params.id},{$set: {...req.body}}, (err, todo) => {
-    if(err) throw err;
-    res.redirect('/');
-  })
+  if(req.body) {
+    Todo.updateOne({_id : req.params.id},{$set: {...req.body}}, (err, todo) => {
+      if(err) throw err;
+      res.redirect('/');
+    })
+  }
 });
 
-
-// const server = http.createServer((req, res) => {
-//   if(req.method === 'POST') {
-//     switch(req.url) {
-//       case '/new' :
-//         app.post('/new', (req, res) => {
-//           const { title, description } = req.body;
-//           const newTodo = new Todo({title, description});
-//           newTodo.save((err, todo) => {    
-//             Todo.find({}, (err, data) => {
-//               res.redirect('/');
-//             })
-//           })
-//         });
-//         break;
-//       case '/todos/:id/update' :
-//         app.put('/todos/:id/update', (req, res) => {
-//           const { title, description } = req.body;
-//             // find data
-//             Todo.findOne({ name: req.params.id }, (err, todo) => {
-//               todo.title = title;
-//               todo.description = description;
-//               todo.save((err, updatedData) => {
-//                 res.json(updatedData);
-//                 res.redirect('/todos/:id');
-//             });
-//           })
-//         });
-//         break;
-//       default :
-//         break;
-
-//     }
-//   }
-// });
-
-
+app.get('/todos/:id/delete', (req, res) => {
+  Todo.remove({ _id: req.params.id }, (err, todo) => {
+    res.redirect('/');
+});
+});
 
 
 app.listen(4000, () => {
