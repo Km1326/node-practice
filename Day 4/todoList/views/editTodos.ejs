@@ -8,8 +8,9 @@
   <title>Edit Todos</title>
 </head>
 <body>
-
-  <div class="app">
+  <div>
+    <a href="/" class="btn btn-1">Home</a>
+    <div class="wrapper">
       <% if(data.length) { %> 
         <form action="/todos/<%= data[0]._id %>" method="POST" class="app">
           <p><input name="method" type="hidden" value="PUT"></p>
@@ -20,6 +21,7 @@
       <% } else { %>
         <h3>  Data Not Found !!! </h3>
       <% } %> 
+    </div>
   </div>
 
 </body>

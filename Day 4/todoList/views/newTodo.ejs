@@ -8,12 +8,15 @@
   <title>New Todo</title>
 </head>
 <body>
-  <div class="app">
+  <div>
+    <a href="/" class="btn btn-1">Home</a>
+    <div class="wrapper">
       <form action="/new" method="post" >
-        <p><input type="text" name="title" class="input-box" placeholder="Title" /></p>
-        <p><textarea type="text" name="description" class="input-box" placeholder="Description" ></textarea></p>
+        <p><input type="text" name="title" class="input-box title" placeholder="Title" /></p>
+        <p><textarea type="text" name="description" class="input-box desc" placeholder="Description" ></textarea></p>
         <input type="submit" value="Create Todo" class="btn btn-2"/>
       </form>
+    </div>
   </div>
 </body>
 </html>

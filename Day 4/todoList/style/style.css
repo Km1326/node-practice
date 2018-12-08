@@ -1,16 +1,18 @@
 body {
-  background: rgba(237, 219, 219, 0.27);
-}
-.app {
-  text-align: center;
-  margin-top: 70px;
+  /* background: rgba(237, 219, 219, 0.27); */
+  background-image: url('./about-us-banner.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .wrapper {
-  width: 70%;
-  margin: 0 auto;
+  width: 45%;
+  margin-left:50%;
 }
 .input-box {
   padding: 10px;
+}
+.list-wrapper {
+  width: 100%;
 }
 li {
   list-style: none;
@@ -44,7 +46,8 @@ a:hover {
   padding: 8px 15px;
 }
 .todo-list-container {
-  display: inline-block;width: 40%;
+  display: inline-block;
+  width: 100%;
   background: #676363;
   padding: 20px;
 }
@@ -80,4 +83,14 @@ a:hover {
   height: 250px;
   width: 350px;
   padding: 10px;
+}
+.show-todo {
+  margin: 20px 20px 0 0;
+}
+.show-todo-title {
+  font-size: 1.5rem;
+  text-transform: capitalize;
+}
+.show-todo-desc {
+  font-size: 1.2rem;
 }

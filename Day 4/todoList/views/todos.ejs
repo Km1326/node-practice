@@ -8,12 +8,13 @@
   <title>Todo</title>
 </head>
 <body>
-
-  <div class="wrapper">
+  <div>
+    <a href="/" class="btn btn-1">Home</a>
+    <div class="wrapper">
       <% if(data.length) { %> 
-        <div>
-          <h3><%= data[0].title %></h3>
-          <p><%= data[0].description %></p>
+        <div class="show-todo">
+          <h3 class="show-todo-title"><%= data[0].title %></h3>
+          <p class="show-todo-desc"><%= data[0].description %></p>
         </div>
         <a class="btn btn-2" href=<%= '/todos/'+ data[0]._id + '/edit' %>>Edit</a>
         <form action=<%= '/todos/'+ data[0]._id + '/delete' %> method="GET" class='btn btn-2'>
@@ -23,6 +24,7 @@
       <% } else { %>
         <h3 class="red">  Data Not Available !!! </h3>
       <% } %> 
+      </div>
   </div>
 </body>
 </html>
