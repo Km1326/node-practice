@@ -1,47 +1,70 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { signUpAction } from '../actions/actions'
+import { signUpAction } from '../actions/actions';
 
 class SignUp extends Component {
 
-  state = {
+	state = {
     name : '',
-    username : '',
-    email : '',
-    password : ''
-  }
+		username : '',
+		email : '',
+		password : ''
+	}
+	
+	handleClick = () => {
+		this.props.signup(this.state)
+	}
 
-  handleChange = (e) => {
-    this.setState({
-      [e.target.name] : e.target.value
-    })
-  }
+	handleChange = (e) => {
+		this.setState({
+			[e.target.name] : e.target.value
+		})
+	}
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.signUp(this.state)
+	render() {
+		return (
+			<div>
+				<div className="signup left">
+				<p className="header">Sign up</p>
+        <input type="text" name="name" 
+          className='input'
+					placeholder="Name"
+					onChange={this.handleChange}
+					value={this.state.name}
+				/>
+				<input type="email" name="email" 
+          placeholder="Email"
+          className='input'
+					onChange={this.handleChange}
+					value={this.state.email}
+				/>
+				<input type="text" name="username" 
+          placeholder="Username"
+          className='input'
+					onChange={this.handleChange}
+					value={this.state.username}
+				/>
+				<input type="password" name="password" 
+          placeholder="Password"
+          className='input'
+					onChange={this.handleChange}
+					value={this.state.password}
+				/>
+				<button className="btn" onClick={this.handleClick}>Sign up</button>
+				<p>Have an account  <Link to="/">go to login </Link></p>
+				</div>
 
-  }
-
-  render() {
-    return (
-      <div>
-        <form>
-          <input type="text" name='name' placeholder="name" onChange={this.handleChange} />
-          <input type="text" name="username" placeholder="username" onChange={this.handleChange} />
-          <input type="email" name="email" placeholder="email" onChange={this.handleChange} />
-          <input type="password" name="password"  placeholder="password" onChange={this.handleChange} />
-          <input type="submit" value="submit" onClick={this.handleSubmit} />
-        </form>
-      </div>
-    )
-  }
+				<div className='right poster'></div>
+			</div>
+		);
+	}
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    signUp : (data) => dispatch(signUpAction(data))
-  }
+	return {
+		signup: (newUser) => dispatch(signUpAction(newUser))
+	}
 }
 
 export default connect(null, mapDispatchToProps)(SignUp);

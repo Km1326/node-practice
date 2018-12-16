@@ -6,14 +6,11 @@ const ObjectId = Schema.Types.ObjectId;
 const postSchema = new Schema({
   userId : {type : ObjectId, ref : 'User'},
   allPosts : [{
-    title : string,
-    description : string,
-    body : string,
-    claps : number,
+    title : String,
+    description : String,
+    body : String,
+    claps : Number,
     date : { type : Date },
-    comments : [{
-      comment : string
-    }]
   }]
 })
 

@@ -1,0 +1,115 @@
+.App {
+	/* background: rgba(9, 52, 62, 0.87); */
+  height: 100vh;
+  background: rgb(241, 237, 238);
+  color: rgba(9, 52, 62, 0.87);
+}
+.main-heading {
+	margin: 0;
+	text-align: center;
+	font-size: 5rem;
+}
+.all-optionBtn-wrapper {
+	margin-top: 150px;
+	text-align: center;
+}
+.optionBtn-wrapper{
+	margin: 80px 0 0 0;
+}
+.optionBtn {
+	display: inline-block;
+	margin: 5px 0;
+	padding: 15px 40px;
+	background: rgb(202, 191, 191);
+	font-size: 1.4rem;
+	text-decoration: none;
+}
+.signup,
+.login {
+	box-sizing: border-box;
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	padding: 0 120px;
+	height: 100vh;
+	justify-content: center;
+	text-align: center;
+	font-family: sans-serif;
+}
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+.center {
+	text-align: center;
+}
+.signup {
+	border-right: 3px solid rgb(170, 21, 170);
+}
+.login {
+	border-left: 3px solid rgb(196, 20, 102);
+	padding: 0 170px;
+}
+.input {
+	height: 25px;
+	padding: 14px;
+	margin: 10px 0;
+	border-radius: 10px;
+	background: rgb(255, 255, 255);
+	border: none;
+	outline: none;
+}
+.btn {
+	background:rgba(9, 52, 62, 0.87);
+	color: white;
+	font-size: 1rem;
+	font-weight: 700;
+	padding: 15px 20px;
+	margin: 20px 0 10px 0;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+}
+.desc {
+	color: rgb(86, 130, 187);
+	font-size: 14px;
+	font-weight: 600;
+}
+.header {
+	font-weight: 600;
+	font-size: 1.3rem
+}
+.capital {
+	text-transform: capitalize;
+}
+.stay-signed-block {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.signed-checkbox {
+	margin: 10px 8px;
+}
+.poster {
+	background: url('./media/mc2.jpg') no-repeat;
+	background-size: cover;
+	height: 100vh;
+	width: 50%;
+}
+
+.create-post {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  padding: 50px 0;
+}
+.input-title {
+  padding: 10px 20px;
+  font-size: 2rem;
+}
+ 

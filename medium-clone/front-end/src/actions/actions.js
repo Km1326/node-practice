@@ -21,7 +21,7 @@ export const signUpAction = (data) => {
 }
 
 export const loginAction = (data) => {
-  console.log(data , "in action")
+  console.log( data, "in login action")
   return(dispatch) => {
     fetch(`${url}/login`, {
       method : "POST",
@@ -29,14 +29,27 @@ export const loginAction = (data) => {
         "Content-Type" : "application/json"
       },
       body : JSON.stringify(data)
+    }).then(res => {
+      console.log(res, "res")
+      res.json()
+    })
+    .then( data => {
+      console.log(data, 'data')
+    })
+  }
+}
+
+export const createPostAction = (data) => {
+  return(dispatch) => {
+    fetch(`${url}/create`, {
+      method : "POST",
+      headers : {
+        "Content-Type" : "application/json"
+      },
+      body : JSON.stringify(data)
     })
     .then(data => {
-      if(data.status === 200) {
-      console.log(data, 'in login action')
-      dispatch({type: 'LOGIN_SUCCESS', data})
-      } else {
-        dispatch({type: 'LOGIN_ERR'})
-      }
+      console.log(data)
     })
   }
 }
