@@ -9,7 +9,8 @@ const passport = require('passport');
 const MongoStore = require('connect-mongo')(session);
 const path = require('path');
 const port = 7000;
-const Post = require('./server/models/Post')
+const Post = require('./server/models/Post');
+const auth = require('./server/modules/auth');
 
 mongoose.connect('mongodb://localhost/mediumClone', (err, connection) => {
   if(err) throw err;
@@ -27,10 +28,10 @@ app.set('view engine', 'ejs');
 
 app.use(session({
   secret : 'medium-clone',
-  cookie : { maxAge : 6000 },
+  cookie : { maxAge : 6000000 },
+  store : new MongoStore({ url : 'mongodb://localhost/mediumClone-session' }),
   resave : true,
-  saveUninitialized : true,
-  store : new MongoStore({ url : 'mongodb://localhost/mediumClone-session' })
+  saveUninitialized : true
 }));
 
 // webpack middlware
@@ -52,33 +53,31 @@ app.use(passport.initialize());
 app.use(passport.session());
 require('./server/modules/passport')(passport)
 app.use(cors());
+app.get('/', (req, res) => {
+  res.render('index')
+})
 
-
-app.get('/', (req, res) => res.render('index'));
-
-// app.get('/signup', (req, res) => {
-//   res.render('signUp')
-// })
-
-app.post('/signup', (req, res) => {
-  const {name, username, email, password} = req.body;
-  const newUser = new User({name, username, email, password});
-  newUser.save((err, data) => {
+app.get('/dashboard', (req, res) => {
+  Post.find({ }, { password : 0 }, (err , data) => {
     if(err) throw err;
-    else { 
-      console.log(data, "send data in mongoose")
-      return res.status(200).json({
-        "message" : "signup successfull"
-      })
-    }
+    console.log(data);
+    res.json({ data: data })
   })
+});
+
+app.get('/signup', (req, res) => {
+  res.render('index')
+})
+app.get('/login', (req, res) => {
+  res.render('index');
 })
 
 app.get('/create', (req, res) => {
   res.render('index');
 })
 
-app.post('/login', function(req, res, next) {
+app.post('/api/login', function(req, res, next) {
+  console.log(req.user, "req.user in post login")
   passport.authenticate('local', function(err, user, info) {
     if (err) { return next(err); }
     if (!user) { return res.redirect('/login'); }
@@ -89,23 +88,49 @@ app.post('/login', function(req, res, next) {
   })(req, res, next)
 });
 
-// app.get('*', (req, res) => {
-//   res.send('404 not found');
-// })
-
 app.post('/create', (req, res) => {
-  console.log(req.body, "post req body")
   const postObj = {
     title: req.body.title,
     description: req.body.description,
     body: req.body.body,
-    claps: null,
+    claps: 0,
     date: new Date()
   }
+  Post.findOneAndUpdate({ userId: req.user._id }, { $push : { allPosts : postObj}}, { upsert: true }, (err, data) => {
+    Post.find({ userId: req.user._id }, (err, data) => {
+      res.json(data);
+    })
+  })
+})
 
-  console.log(postObj, req.user, "check data and id");
+app.get('/story/:title', (req, res) => {
+  let params = req.params.title.split(":")[1]
+  console.log(req.params,params, "in story url ")
+  Post.findOne({ title : params }, (err, data) => {
+    res.json(data);
+  })
 
 })
+
+app.get('/isLoggedin', auth.isLoggedIn,(req, res) => {
+  console.log(req.user, "req user for check user")
+  User.findOne({ _id: req.user._id }, { password: 0 }, function(err, user) {
+    if(err) throw err;
+    res.json({ user: user })
+  });
+})
+
+app.get('/logout', (req, res) => {
+  req.session.destroy();
+  res.status(200).redirect('/login')
+})
+
+app.get('*', (req, res) => {
+  res.send('404 not found');
+})
+
+// app.use('/api', require('./server/routes/apiRoutes'));
+app.use(require('./server/routes/routes'));
 
 app.listen(port, () => {
   console.log(`server running on port ${port}`)

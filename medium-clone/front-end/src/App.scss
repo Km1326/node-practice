@@ -1,8 +1,12 @@
 .App {
 	/* background: rgba(9, 52, 62, 0.87); */
-  height: 100vh;
+  min-height: 100vh;
   background: rgb(241, 237, 238);
   color: rgba(9, 52, 62, 0.87);
+}
+.wrapper {
+	width: 80%;
+	margin: 0 auto;
 }
 .main-heading {
 	margin: 0;
@@ -77,7 +81,7 @@
 	font-size: 14px;
 	font-weight: 600;
 }
-.header {
+.header-title {
 	font-weight: 600;
 	font-size: 1.3rem
 }
@@ -110,6 +114,60 @@
 }
 .input-title {
   padding: 10px 20px;
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
- 
+.input-desc {
+	padding: 10px 20px;
+	font-size: 1.6rem;
+	margin-top: 15px;
+}
+.input-body {
+	padding: 10px 20px;
+	font-size: 1.2rem;
+	height: 50vh;
+	margin-top: 15px;
+}
+ .header {
+	 background: rgba(9, 52, 62, 0.87);
+	 padding: 20px;
+	 display: flex;
+	 justify-content: space-between;
+	 align-items: center;
+ }
+ .logo {
+	 display: inline-block;
+	 margin-left: 20px;
+	 padding: 5px;
+	 background: white;
+	 color: rgba(9, 52, 62, 0.87);
+	 font-weight: 800;
+ }
+ .logo-m {
+	 font-size: 2rem;
+ }
+ .logo-c {
+	font-size: 1.4rem;
+ }
+ .link-btn {
+	 color: rgba(9, 52, 62, 0.87);
+	 background: white;
+	 margin-right: 20px;
+ }
+ .userName-logo {
+	 padding: 10px;
+	 border-radius: 50%;
+	 font-size: 1.3rem;
+	 font-weight: 700;
+ }
+ .btn-post {
+	width: 15%;
+ }
+ .show-title {
+	 font-size: 1.3rem;
+	 text-decoration: none;
+	 color: rgba(9, 52, 62, 0.87);
+	 text-transform: capitalize;
+ }
+ .show-post {
+	 padding: 10px 0;
+ }

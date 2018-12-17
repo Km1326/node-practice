@@ -2,13 +2,11 @@ const Local = require('passport-local').Strategy;
 const User = require('../models/User');
 
 module.exports = function(passport) {
-  console.log('serialize')
   passport.serializeUser(function(user, done) {
     return done(null, user._id);
   });
 
   passport.deserializeUser(function(_id, done) {
-    console.log('deserialize')
     User.findById(_id, function(err, user) {
       return done(err, user);
     });
@@ -20,7 +18,6 @@ module.exports = function(passport) {
         if (err) { return done(err); }
         if (!user) { return done(null, false); }
         user.verifyPassword(password, function(err, isMatched) {
-          console.log(isMatched, user, 'here in passport')
           if (!isMatched) {
             return done(null, false)
           }

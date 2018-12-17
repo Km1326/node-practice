@@ -26,7 +26,7 @@ class SignUp extends Component {
 		return (
 			<div>
 				<div className="signup left">
-				<p className="header">Sign up</p>
+				<p className="header-title">Sign up</p>
         <input type="text" name="name" 
           className='input'
 					placeholder="Name"
@@ -52,7 +52,7 @@ class SignUp extends Component {
 					value={this.state.password}
 				/>
 				<button className="btn" onClick={this.handleClick}>Sign up</button>
-				<p>Have an account  <Link to="/">go to login </Link></p>
+				<p>Have an account  <Link to="/login">go to login </Link></p>
 				</div>
 
 				<div className='right poster'></div>

@@ -9,7 +9,7 @@ import postReducer from './postReducer';
 // })
 
 const initState = {
-
+  loggedInUser : {}
 }
 
 const rootReducer = (state = initState, action) => {
@@ -17,7 +17,15 @@ const rootReducer = (state = initState, action) => {
     case 'SIGNUP_SUCCESS':
       return state
     case 'LOGIN_SUCCESS':
-      return state
+      return {
+        ...state,
+        loggedInUser : action.data.user
+      }
+    case 'ISLOGGEDINDATA' :
+      return {
+        ...state,
+        fetchedUserData : action.data
+      }
     default:
       break;
   }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.scss';
+import DashBoard from './components/DashBoard';
 import Login from './components/Login';
 import SignUP from './components/SignUp';
 import CreatePost from './components/CreatePost';
@@ -11,7 +12,8 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
         <Switch>
-          <Route path='/' component={Login} exact />
+          <Route path='/' component={DashBoard} exact />
+          <Route path='/login' component={Login} />
           <Route path='/signup' component={SignUP} />
           <Route path='/create' component={CreatePost} />
         </Switch>

@@ -21,20 +21,20 @@ export const signUpAction = (data) => {
 }
 
 export const loginAction = (data) => {
-  console.log( data, "in login action")
   return(dispatch) => {
-    fetch(`${url}/login`, {
+    fetch(`${url}/api/login`, {
       method : "POST",
       headers : {
         "Content-Type" : "application/json"
       },
       body : JSON.stringify(data)
-    }).then(res => {
-      console.log(res, "res")
-      res.json()
-    })
+    }).then(res => res.json())
     .then( data => {
-      console.log(data, 'data')
+      if(data) {
+        dispatch({type: 'LOGIN_SUCCESS', data})
+      } else {
+        dispatch({type: 'LOGIN_ERR'})
+      }
     })
   }
 }
@@ -51,5 +51,12 @@ export const createPostAction = (data) => {
     .then(data => {
       console.log(data)
     })
+  }
+}
+
+export const getLoggedinUserData = (data) => {
+  console.log(data, 'action')
+  return(dispatch) => {
+    dispatch({type: 'ISLOGGEDINDATA', data})
   }
 }
